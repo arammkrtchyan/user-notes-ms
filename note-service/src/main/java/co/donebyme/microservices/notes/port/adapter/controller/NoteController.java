@@ -31,7 +31,7 @@ public class NoteController {
     }
 
     @RequestMapping(
-            method = RequestMethod.POST,
+            method = RequestMethod.GET,
             path = "/{id}")
     public NoteView findNote(@PathVariable String id) {
         return noteView(noteApplicationService.findById(getUserEmail(), id));
@@ -46,8 +46,9 @@ public class NoteController {
                 .map(this::noteView).collect(Collectors.toList());
     }
 
-    @RequestMapping(method = RequestMethod.PUT)
-    public NoteView modifyNote(@RequestBody ModifyNoteCommand command) {
+    @RequestMapping(path = "/{id}", method = RequestMethod.PUT)
+    public NoteView modifyNote(@PathVariable String id,  @RequestBody ModifyNoteCommand command) {
+        command.setModifierUser(getUserEmail()).setNoteId(id);
         return noteView(noteApplicationService.modifyNote(command));
     }
 

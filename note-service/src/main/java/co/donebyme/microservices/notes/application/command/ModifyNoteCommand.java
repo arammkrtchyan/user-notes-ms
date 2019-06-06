@@ -1,5 +1,6 @@
 package co.donebyme.microservices.notes.application.command;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.validation.constraints.Size;
@@ -10,7 +11,8 @@ import javax.validation.constraints.Size;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ModifyNoteCommand {
 
-    private String modifierUserId;
+    @JsonIgnore
+    private String modifierUser;
 
     private String noteId;
 
@@ -20,11 +22,19 @@ public class ModifyNoteCommand {
     @Size(max = 1000)
     private String note;
 
-    public ModifyNoteCommand(String noteId, String modifierUserId, String title, String note) {
+    public ModifyNoteCommand(String title, String note) {
         this.title = title;
         this.note = note;
+    }
+
+    public ModifyNoteCommand setModifierUser(String modifierUser) {
+        this.modifierUser = modifierUser;
+        return this;
+    }
+
+    public ModifyNoteCommand setNoteId(String noteId) {
         this.noteId = noteId;
-        this.modifierUserId = modifierUserId;
+        return this;
     }
 
     public String getTitle() {
@@ -39,7 +49,7 @@ public class ModifyNoteCommand {
         return noteId;
     }
 
-    public String getModifierUserId() {
-        return modifierUserId;
+    public String getModifierUser() {
+        return modifierUser;
     }
 }

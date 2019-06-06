@@ -72,7 +72,7 @@ public class NoteApplicationService {
     }
 
     public Note modifyNote(ModifyNoteCommand command) {
-        Note note = findById(command.getModifierUserId(), command.getNoteId());
+        Note note = findById(command.getModifierUser(), command.getNoteId());
 
         note.changeNote(command.getNote())
                 .changeTitle(command.getTitle());
