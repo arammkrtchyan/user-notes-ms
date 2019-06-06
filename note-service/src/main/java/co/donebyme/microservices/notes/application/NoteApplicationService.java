@@ -35,33 +35,33 @@ public class NoteApplicationService {
     }
 
     public Note submitNote(SubmitNoteCommand command) {
-        String userId = command.getUserId();
-        Author author = collaboratorService.authorFrom(userId);
+        String email = command.getEmail();
+        Author author = collaboratorService.authorFrom(email);
         Note note = Note.submitNote(command.getTitle(), command.getNote(), author);
         return noteRepository.save(note);
     }
 
-    public List<Note> notesOfAuthor(String userId) {
-        Author author = collaboratorService.authorFrom(userId);
+    public List<Note> notesOfAuthor(String email) {
+        Author author = collaboratorService.authorFrom(email);
         if (author == null) {
-            throw new UserNotFoundException(String.format("No user with specified id: %s", userId));
+            throw new UserNotFoundException(String.format("No user with specified email: %s", email));
         }
 
         return noteRepository.notesOfUser(author);
 
     }
 
-    public Note findById(String userId, String identity) {
-        Author author = collaboratorService.authorFrom(userId);
+    public Note findById(String email, String identity) {
+        Author author = collaboratorService.authorFrom(email);
         if (author == null) {
-            throw new UserNotFoundException(String.format("No user with specified id: %s", userId));
+            throw new UserNotFoundException(String.format("No user with specified email: %s", email));
         }
 
         Optional<Note> note = noteRepository.ofId(NoteId.fromExisting(identity));
 
 
         return note.map(n -> {
-            if (!Objects.equals(userId, n.getAuthor().getAuthorId().getId())) {
+            if (!Objects.equals(email, n.getAuthor().getEmail())) {
                 throw new NoteAccessDeniedException("No access to the notes of the others.");
             }
             return n;
@@ -74,8 +74,8 @@ public class NoteApplicationService {
     public Note modifyNote(ModifyNoteCommand command) {
         Note note = findById(command.getModifierUserId(), command.getNoteId());
 
-        note.changeNote(command.getNote());
-        note.changeTitle(command.getTitle());
+        note.changeNote(command.getNote())
+                .changeTitle(command.getTitle());
 
         return this.noteRepository.save(note);
     }

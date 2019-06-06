@@ -1,9 +1,6 @@
 package co.donebyme.microservices.notes.domain.model.author;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.Embedded;
+import javax.persistence.*;
 
 /**
  * In this domain represents the user who wrote the note.
@@ -17,18 +14,19 @@ public class Author {
     @AttributeOverride(name = "id", column = @Column(name = "author_id"))
     private AuthorId authorId;
 
-    private String name;
+    @Transient
+    private String email;
 
-    public Author(AuthorId authorId, String name) {
+    public Author(AuthorId authorId, String email) {
         this.authorId = authorId;
-        this.name = name;
+        this.email = email;
     }
 
     public AuthorId getAuthorId() {
         return authorId;
     }
 
-    public String getName() {
-        return name;
+    public String getEmail() {
+        return email;
     }
 }

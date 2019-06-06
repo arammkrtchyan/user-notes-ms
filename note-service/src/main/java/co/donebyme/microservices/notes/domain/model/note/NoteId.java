@@ -2,6 +2,7 @@ package co.donebyme.microservices.notes.domain.model.note;
 
 import javax.persistence.Embeddable;
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Note's identity value.
@@ -25,7 +26,20 @@ public class NoteId implements Serializable {
         this.id = id;
     }
 
-    public String id() {
+    public String getId() {
         return id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        NoteId noteId = (NoteId) o;
+        return Objects.equals(id, noteId.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

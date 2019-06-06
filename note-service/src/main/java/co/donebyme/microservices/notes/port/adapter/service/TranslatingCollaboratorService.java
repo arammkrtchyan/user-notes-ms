@@ -19,7 +19,7 @@ public class TranslatingCollaboratorService implements CollaboratorService {
     }
 
     @Override
-    public Author authorFrom(String identity) {
-        return adapter.toAuthor(identity);
+    public Author authorFrom(String email) {
+        return adapter.toAuthor(email);
     }
 }

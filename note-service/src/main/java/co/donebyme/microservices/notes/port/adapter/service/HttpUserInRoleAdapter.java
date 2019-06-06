@@ -19,11 +19,12 @@ public class HttpUserInRoleAdapter implements UserInRoleAdapter {
     }
 
     @Override
-    public Author toAuthor(String identity) {
+    public Author toAuthor(String email) {
         AuthorRepresentation representation = restTemplate.getForEntity(
-                "http://auth-service/users/{identity}",
+                // TODO make configurable or use eureka
+                "http://localhost:8081/user-management/users?email={email}",
                 AuthorRepresentation.class,
-                identity
+                email
         ).getBody();
         return collaboratorTranslator.toAuthorFromRepresentation(representation);
     }

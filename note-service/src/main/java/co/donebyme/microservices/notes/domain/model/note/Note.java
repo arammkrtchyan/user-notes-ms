@@ -64,11 +64,13 @@ public class Note {
 
     public Note changeTitle(String title) {
         this.title = validateTitle(title);
+        modifiedDate = ZonedDateTime.now();
         return this;
     }
 
     public Note changeNote(String note) {
         this.note = validateTitle(note);
+        modifiedDate = ZonedDateTime.now();
         return this;
     }
 

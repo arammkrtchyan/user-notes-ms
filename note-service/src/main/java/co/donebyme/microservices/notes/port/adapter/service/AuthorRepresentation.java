@@ -10,20 +10,20 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonIgnoreProperties(ignoreUnknown = true)
 class AuthorRepresentation {
 
-    private String name;
+    private String email;
 
     private String id;
 
     @JsonCreator
     public AuthorRepresentation(
             @JsonProperty(value = "id") String id,
-            @JsonProperty(value = "name") String name) {
-        this.name = name;
+            @JsonProperty(value = "email") String email) {
+        this.email = email;
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getEmail() {
+        return email;
     }
 
     public String getId() {

@@ -7,6 +7,7 @@ import co.donebyme.microservices.notes.domain.model.note.Note;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Aram Mkrtchyan.
@@ -30,9 +31,9 @@ public class NoteController {
     @RequestMapping(
             method = RequestMethod.POST,
             path = "/{id}")
-    public Note findNote(@PathVariable String id) {
+    public NoteView findNote(@PathVariable String id) {
         String userId = null;
-        return noteApplicationService.findById(userId, id);
+        return noteView(noteApplicationService.findById(userId, id));
     }
 
 
@@ -40,13 +41,23 @@ public class NoteController {
             method = RequestMethod.GET,
             params = "userId"
     )
-    public List<Note> notesOfUser(@RequestParam(name = "userId") String userId) {
-        return noteApplicationService.notesOfAuthor(userId);
+    public List<NoteView> notesOfUser(@RequestParam(name = "userId") String userId) {
+        return noteApplicationService.notesOfAuthor(userId).stream()
+                .map(this::noteView).collect(Collectors.toList());
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    public Note modifyNote(@RequestBody ModifyNoteCommand command) {
-        return noteApplicationService.modifyNote(command);
+    public NoteView modifyNote(@RequestBody ModifyNoteCommand command) {
+        return noteView(noteApplicationService.modifyNote(command));
+    }
+
+    private NoteView noteView(Note note) {
+        return new NoteView(
+                note.getAuthor().getEmail(),
+                note.getNote(),
+                note.getTitle(),
+                note.getNoteId().getId()
+        );
     }
 
 }

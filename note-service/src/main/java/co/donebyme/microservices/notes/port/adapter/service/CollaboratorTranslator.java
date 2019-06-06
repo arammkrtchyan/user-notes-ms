@@ -11,7 +11,7 @@ class CollaboratorTranslator {
 
 
     Author toAuthorFromRepresentation(AuthorRepresentation representation) {
-        return new Author(new AuthorId(representation.getId()), representation.getName());
+        return new Author(new AuthorId(representation.getId()), representation.getEmail());
     }
 
 }
