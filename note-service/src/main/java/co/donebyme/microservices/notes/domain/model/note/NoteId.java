@@ -11,7 +11,7 @@ public class NoteId {
     /**
      * Constructs Note id from existing identity.
      */
-    static NoteId fromExisting(String id) {
+    public static NoteId fromExisting(String id) {
         return new NoteId(id);
     }
 

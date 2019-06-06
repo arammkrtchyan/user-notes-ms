@@ -16,7 +16,7 @@ public class Author {
         this.name = name;
     }
 
-    public AuthorId getUserId() {
+    public AuthorId getAuthorId() {
         return userId;
     }
 
