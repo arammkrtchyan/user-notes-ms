@@ -23,11 +23,13 @@ public class UserServiceApplication implements CommandLineRunner {
     private final UserRepository userRepository;
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
+
+        /*BCryptPasswordEncoder cryptPasswordEncoder = new BCryptPasswordEncoder();
         User user = new User(
                 "aram@gmail.com",
-                "encoded_passord"
+                cryptPasswordEncoder.encode("encoded_password")
         );
-        userRepository.save(user);
+        userRepository.save(user);*/
     }
 }

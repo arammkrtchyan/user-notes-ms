@@ -9,9 +9,12 @@ public class UserView {
 
     private long id;
 
-    UserView(String email, long id) {
+    private String password;
+
+    UserView(String email, long id, String password) {
         this.email = email;
         this.id = id;
+        this.password = password;
     }
 
     public String getEmail() {
@@ -20,5 +23,9 @@ public class UserView {
 
     public long getId() {
         return id;
+    }
+
+    public String getPassword() {
+        return password;
     }
 }

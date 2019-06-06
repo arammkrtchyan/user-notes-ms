@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/users")
 public class UserController {
 
-
     private final UserRepository userRepository;
 
     @Autowired
@@ -26,7 +25,7 @@ public class UserController {
     @RequestMapping(method = RequestMethod.GET)
     UserView userByEmail(@RequestParam(name = "email") String email) {
         User user = userRepository.findByEmail(email);
-        return new UserView(user.getEmail(), user.getId());
+        return new UserView(user.getEmail(), user.getId(), user.getPassword());
     }
 
 

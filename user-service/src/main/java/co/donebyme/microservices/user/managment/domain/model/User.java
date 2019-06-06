@@ -14,6 +14,8 @@ public class User {
     @GeneratedValue
     private long id;
 
+
+    @Column(unique = true)
     private String email;
 
     private String password;
@@ -25,6 +27,10 @@ public class User {
     @PreUpdate
     public void preUpdate() {
         modifiedDate = ZonedDateTime.now();
+    }
+
+    User() {
+        // Why JPA, Why?
     }
 
     public User(
