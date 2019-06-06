@@ -37,8 +37,12 @@ public class NoteApplicationService {
     public Note submitNote(SubmitNoteCommand command) {
         String email = command.getEmail();
         Author author = collaboratorService.authorFrom(email);
-        Note note = Note.submitNote(command.getTitle(), command.getNote(), author);
-        return noteRepository.save(note);
+        if(author == null) {
+            throw new UserNotFoundException(String.format("No user with specified email: %s", email));
+        } else {
+            Note note = Note.submitNote(command.getTitle(), command.getNote(), author);
+            return noteRepository.save(note);
+        }
     }
 
     public List<Note> notesOfAuthor(String email) {
