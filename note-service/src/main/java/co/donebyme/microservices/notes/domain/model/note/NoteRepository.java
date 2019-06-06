@@ -1,6 +1,9 @@
 package co.donebyme.microservices.notes.domain.model.note;
 
-import co.donebyme.microservices.notes.domain.model.user.UserId;
+import co.donebyme.microservices.notes.domain.model.author.Author;
+
+import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Aram Mkrtchyan.
@@ -9,10 +12,8 @@ public interface NoteRepository {
 
     Note save(Note note);
 
-    Note ofId(NoteId noteId);
+    Optional<Note> ofId(NoteId noteId);
 
-    Iterable<Note> findAll();
-
-    Iterable<Note> notesOfUser(UserId userId);
+    List<Note> notesOfUser(Author author);
 
 }

@@ -1,6 +1,6 @@
 package co.donebyme.microservices.notes.domain.model.note;
 
-import co.donebyme.microservices.notes.domain.model.user.User;
+import co.donebyme.microservices.notes.domain.model.author.Author;
 
 import java.time.ZonedDateTime;
 import java.util.Objects;
@@ -17,20 +17,24 @@ public class Note {
 
     private NoteId noteId;
 
-    private User user;
+    private Author author;
 
     private ZonedDateTime dateRecordAdded;
 
     private ZonedDateTime modifiedDate;
 
-    Note(String title, String note, User user) {
-        this(title, note, user, NoteId.fromExisting(UUID.randomUUID().toString()));
+    public static Note submitNote(String title, String note, Author author) {
+        return new Note(title, note, author);
     }
 
-    private Note(String title, String note, User user, NoteId noteId) {
+    private Note(String title, String note, Author author) {
+        this(title, note, author, NoteId.fromExisting(UUID.randomUUID().toString()));
+    }
+
+    private Note(String title, String note, Author author, NoteId noteId) {
         this.title = validateTitle(title);
         this.note = validateNote(note);
-        this.user = Objects.requireNonNull(user, "User who added the not should be specified");
+        this.author = Objects.requireNonNull(author, "Notes author should be specified");
         this.noteId = noteId;
         this.dateRecordAdded = ZonedDateTime.now();
     }
@@ -47,8 +51,8 @@ public class Note {
         return note;
     }
 
-    public User getUser() {
-        return user;
+    public Author getAuthor() {
+        return author;
     }
 
     public ZonedDateTime getDateRecordAdded() {

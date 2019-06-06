@@ -1,13 +1,13 @@
-package co.donebyme.microservices.notes.domain.model.user;
+package co.donebyme.microservices.notes.domain.model.author;
 
 /**
  * @author Aram Mkrtchyan.
  */
-public class UserId {
+public class AuthorId {
 
     private String id;
 
-    public UserId(String id) {
+    public AuthorId(String id) {
         this.id = id;
     }
 
