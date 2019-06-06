@@ -1,13 +1,20 @@
 ### Spring boot Microservice with Domain Driven Design.
 
-Note Service will allow:
 
-1. Get notes of the user.
-2. Author can modify his notes.
-3. Author can submit a new note.
+#####Services
+
+Note Service:
+
+    1. Get notes of the user.
+    2. Author can modify his notes.
+    3. Author can submit a new note.
+
+User Service:
+
+     1. Provides ability to pull user by email. 
 
 
-#####Architecture
+#####Service Architecture
 
 Note Service uses hexagonal architecture. With corresponding layers:
 
