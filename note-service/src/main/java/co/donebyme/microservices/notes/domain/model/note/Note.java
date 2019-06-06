@@ -73,7 +73,7 @@ public class Note {
     }
 
     public Note changeNote(String note) {
-        this.note = validateTitle(note);
+        this.note = validateNote(note);
         modifiedDate = ZonedDateTime.now();
         return this;
     }
