@@ -12,7 +12,6 @@ import java.util.Objects;
 @Embeddable
 public class NoteId implements Serializable {
 
-
     /**
      * Constructs Note id from existing identity.
      */
@@ -21,6 +20,8 @@ public class NoteId implements Serializable {
     }
 
     private String id;
+
+    NoteId(){}
 
     private NoteId(String id) {
         this.id = id;

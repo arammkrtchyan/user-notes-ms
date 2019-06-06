@@ -1,4 +1,4 @@
-package co.donebyme.microservices.notes.port.adapter.service;
+package co.donebyme.microservices.notes.port.adapter.service.collaborator;
 
 
 import co.donebyme.microservices.notes.domain.model.author.Author;

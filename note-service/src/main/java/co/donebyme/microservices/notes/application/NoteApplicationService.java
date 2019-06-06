@@ -61,7 +61,7 @@ public class NoteApplicationService {
 
 
         return note.map(n -> {
-            if (!Objects.equals(email, n.getAuthor().getEmail())) {
+            if (!Objects.equals(author.getAuthorId(), n.getAuthor().getAuthorId())) {
                 throw new NoteAccessDeniedException("No access to the notes of the others.");
             }
             return n;

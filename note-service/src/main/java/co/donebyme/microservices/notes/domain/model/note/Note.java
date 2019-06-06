@@ -33,6 +33,10 @@ public class Note {
         return new Note(title, note, author);
     }
 
+    Note() {
+        // For JPA
+    }
+
     private Note(String title, String note, Author author) {
         this(title, note, author, NoteId.fromExisting(UUID.randomUUID().toString()));
     }

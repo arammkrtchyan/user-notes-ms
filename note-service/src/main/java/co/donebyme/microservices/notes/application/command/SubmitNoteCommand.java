@@ -1,11 +1,14 @@
 package co.donebyme.microservices.notes.application.command;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
  * @author Aram Mkrtchyan.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class SubmitNoteCommand {
 
     @NotNull
@@ -33,5 +36,10 @@ public class SubmitNoteCommand {
 
     public String getEmail() {
         return email;
+    }
+
+    public SubmitNoteCommand setEmail(String email) {
+        this.email = email;
+        return this;
     }
 }

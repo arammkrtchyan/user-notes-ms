@@ -1,10 +1,13 @@
 package co.donebyme.microservices.notes.application.command;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.validation.constraints.Size;
 
 /**
  * @author Aram Mkrtchyan.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ModifyNoteCommand {
 
     private String modifierUserId;

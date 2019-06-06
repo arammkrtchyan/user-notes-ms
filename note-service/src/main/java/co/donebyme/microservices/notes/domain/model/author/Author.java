@@ -17,6 +17,8 @@ public class Author {
     @Transient
     private String email;
 
+    Author(){}
+
     public Author(AuthorId authorId, String email) {
         this.authorId = authorId;
         this.email = email;

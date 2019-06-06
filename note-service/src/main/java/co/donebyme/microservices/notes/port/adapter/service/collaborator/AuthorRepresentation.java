@@ -1,4 +1,4 @@
-package co.donebyme.microservices.notes.port.adapter.service;
+package co.donebyme.microservices.notes.port.adapter.service.collaborator;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
