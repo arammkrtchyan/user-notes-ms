@@ -2,6 +2,9 @@ package co.donebyme.microservices.notes.domain.model.note;
 
 import co.donebyme.microservices.notes.domain.model.author.Author;
 
+import javax.persistence.Embedded;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 import java.util.UUID;
@@ -9,14 +12,17 @@ import java.util.UUID;
 /**
  * @author Aram Mkrtchyan.
  */
+@Entity
 public class Note {
 
     private String title;
 
     private String note;
 
+    @EmbeddedId
     private NoteId noteId;
 
+    @Embedded
     private Author author;
 
     private ZonedDateTime dateRecordAdded;
@@ -53,6 +59,17 @@ public class Note {
 
     public Author getAuthor() {
         return author;
+    }
+
+
+    public Note changeTitle(String title) {
+        this.title = validateTitle(title);
+        return this;
+    }
+
+    public Note changeNote(String note) {
+        this.note = validateTitle(note);
+        return this;
     }
 
     public ZonedDateTime getDateRecordAdded() {

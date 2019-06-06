@@ -1,11 +1,15 @@
 package co.donebyme.microservices.notes.domain.model.note;
 
+import javax.persistence.Embeddable;
+import java.io.Serializable;
+
 /**
  * Note's identity value.
  *
  * @author Aram Mkrtchyan.
  */
-public class NoteId {
+@Embeddable
+public class NoteId implements Serializable {
 
 
     /**

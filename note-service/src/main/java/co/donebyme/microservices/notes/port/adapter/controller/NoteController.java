@@ -1,6 +1,7 @@
 package co.donebyme.microservices.notes.port.adapter.controller;
 
 import co.donebyme.microservices.notes.application.NoteApplicationService;
+import co.donebyme.microservices.notes.application.command.ModifyNoteCommand;
 import co.donebyme.microservices.notes.application.command.SubmitNoteCommand;
 import co.donebyme.microservices.notes.domain.model.note.Note;
 import org.springframework.web.bind.annotation.*;
@@ -36,9 +37,16 @@ public class NoteController {
 
 
     @RequestMapping(
-            method = RequestMethod.POST)
-    public List<Note> notesOfUser(String userId) {
+            method = RequestMethod.GET,
+            params = "userId"
+    )
+    public List<Note> notesOfUser(@RequestParam(name = "userId") String userId) {
         return noteApplicationService.notesOfAuthor(userId);
+    }
+
+    @RequestMapping(method = RequestMethod.PUT)
+    public Note modifyNote(@RequestBody ModifyNoteCommand command) {
+        return noteApplicationService.modifyNote(command);
     }
 
 }

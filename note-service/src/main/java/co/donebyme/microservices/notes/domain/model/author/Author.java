@@ -1,23 +1,31 @@
 package co.donebyme.microservices.notes.domain.model.author;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.Embedded;
+
 /**
  * In this domain represents the user who wrote the note.
  *
  * @author Aram Mkrtchyan.
  */
+@Embeddable
 public class Author {
 
-    private AuthorId userId;
+    @Embedded
+    @AttributeOverride(name = "id", column = @Column(name = "author_id"))
+    private AuthorId authorId;
 
     private String name;
 
-    public Author(AuthorId userId, String name) {
-        this.userId = userId;
+    public Author(AuthorId authorId, String name) {
+        this.authorId = authorId;
         this.name = name;
     }
 
     public AuthorId getAuthorId() {
-        return userId;
+        return authorId;
     }
 
     public String getName() {

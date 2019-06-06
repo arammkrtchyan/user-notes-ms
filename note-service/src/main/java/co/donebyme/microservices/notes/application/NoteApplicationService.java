@@ -1,6 +1,7 @@
 package co.donebyme.microservices.notes.application;
 
 import co.donebyme.microservices.notes.application.command.SubmitNoteCommand;
+import co.donebyme.microservices.notes.application.command.ModifyNoteCommand;
 import co.donebyme.microservices.notes.application.exception.NoteAccessDeniedException;
 import co.donebyme.microservices.notes.application.exception.NoteNotFoundException;
 import co.donebyme.microservices.notes.application.exception.UserNotFoundException;
@@ -68,6 +69,15 @@ public class NoteApplicationService {
                 new NoteNotFoundException("Couldn't find note with specified identity.")
         );
 
+    }
+
+    public Note modifyNote(ModifyNoteCommand command) {
+        Note note = findById(command.getModifierUserId(), command.getNoteId());
+
+        note.changeNote(command.getNote());
+        note.changeTitle(command.getTitle());
+
+        return this.noteRepository.save(note);
     }
 
 }
