@@ -3,6 +3,7 @@ package co.donebyme.microservices.notes.application.command;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 /**
@@ -16,7 +17,8 @@ public class ModifyNoteCommand {
 
     private String noteId;
 
-    @Size(min = 0, max = 50)
+    @Size(max = 50)
+    @NotEmpty
     private String title;
 
     @Size(max = 1000)

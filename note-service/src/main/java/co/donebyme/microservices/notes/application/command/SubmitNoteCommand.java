@@ -3,7 +3,8 @@ package co.donebyme.microservices.notes.application.command;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 /**
@@ -15,7 +16,8 @@ public class SubmitNoteCommand {
     @JsonIgnore
     private String email;
 
-    @Size(min = 0, max = 50)
+    @Size(max = 50)
+    @NotEmpty(message = "Please provide title of the note.")
     private String title;
 
     @Size(max = 1000)

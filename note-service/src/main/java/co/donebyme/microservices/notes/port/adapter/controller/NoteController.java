@@ -8,6 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,7 +27,7 @@ public class NoteController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public Note submitNote(@RequestBody SubmitNoteCommand command) {
+    public Note submitNote(@Valid @RequestBody SubmitNoteCommand command) {
         return noteApplicationService.submitNote(command.setEmail(getUserEmail()));
     }
 
@@ -47,7 +48,7 @@ public class NoteController {
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.PUT)
-    public NoteView modifyNote(@PathVariable String id,  @RequestBody ModifyNoteCommand command) {
+    public NoteView modifyNote(@PathVariable String id, @Valid @RequestBody ModifyNoteCommand command) {
         command.setModifierUser(getUserEmail()).setNoteId(id);
         return noteView(noteApplicationService.modifyNote(command));
     }
