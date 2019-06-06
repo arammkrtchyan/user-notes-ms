@@ -5,16 +5,13 @@ package co.donebyme.microservices.notes.port.adapter.controller;
  */
 public class NoteView {
 
-    private String author;
-
     private String note;
 
     private String title;
 
     private String id;
 
-    public NoteView(String author, String note, String title, String id) {
-        this.author = author;
+    public NoteView(String note, String title, String id) {
         this.note = note;
         this.title = title;
         this.id = id;
@@ -32,7 +29,4 @@ public class NoteView {
         return title;
     }
 
-    public String getAuthor() {
-        return author;
-    }
 }

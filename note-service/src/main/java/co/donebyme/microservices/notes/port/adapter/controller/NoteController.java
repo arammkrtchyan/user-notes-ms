@@ -4,6 +4,8 @@ import co.donebyme.microservices.notes.application.NoteApplicationService;
 import co.donebyme.microservices.notes.application.command.ModifyNoteCommand;
 import co.donebyme.microservices.notes.application.command.SubmitNoteCommand;
 import co.donebyme.microservices.notes.domain.model.note.Note;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,24 +27,22 @@ public class NoteController {
 
     @RequestMapping(method = RequestMethod.POST)
     public Note submitNote(@RequestBody SubmitNoteCommand command) {
-        return noteApplicationService.submitNote(command);
+        return noteApplicationService.submitNote(command.setEmail(getUserEmail()));
     }
 
     @RequestMapping(
             method = RequestMethod.POST,
             path = "/{id}")
     public NoteView findNote(@PathVariable String id) {
-        String userId = null;
-        return noteView(noteApplicationService.findById(userId, id));
+        return noteView(noteApplicationService.findById(getUserEmail(), id));
     }
 
 
     @RequestMapping(
-            method = RequestMethod.GET,
-            params = "userId"
+            method = RequestMethod.GET
     )
-    public List<NoteView> notesOfUser(@RequestParam(name = "userId") String userId) {
-        return noteApplicationService.notesOfAuthor(userId).stream()
+    public List<NoteView> notesOfUser() {
+        return noteApplicationService.notesOfAuthor(getUserEmail()).stream()
                 .map(this::noteView).collect(Collectors.toList());
     }
 
@@ -53,11 +53,19 @@ public class NoteController {
 
     private NoteView noteView(Note note) {
         return new NoteView(
-                note.getAuthor().getEmail(),
                 note.getNote(),
                 note.getTitle(),
                 note.getNoteId().getId()
         );
+    }
+
+    private String getUserEmail() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            return ((UserDetails) principal).getUsername();
+        } else {
+            return principal.toString();
+        }
     }
 
 }
